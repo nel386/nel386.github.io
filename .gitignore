@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Export script and generated export (local only)
+/project-export.txt
+/export-project.ps1

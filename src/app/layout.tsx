@@ -17,9 +17,9 @@ const displayFont = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Nelson González - Full Stack Developer",
+  title: "Nelson González - Frontend Developer",
   description:
-    "Desarrollador Full Stack especializado en React y Next.js. Construyo aplicaciones web rápidas, accesibles y mantenibles. Disponible para trabajo remoto y proyectos freelance.",
+    "Desarrollador frontend especializado en React y Next.js. Portfolio personal con proyectos y aprendizajes.",
   keywords: [
     "Full Stack Developer",
     "React Developer",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Nelson González" }],
   openGraph: {
-    title: "Nelson González - Full Stack Developer",
+    title: "Nelson González - Frontend Developer",
     description:
       "Portfolio de desarrollador Full Stack especializado en React y Next.js",
     type: "website",

@@ -50,9 +50,8 @@ export default function HeroSection() {
             </h1>
 
             <p className="mt-6 text-lg text-muted max-w-2xl">
-              {PERSONAL_INFO.title} especializado en React y Next.js. Convierto
-              ideas en interfaces rápidas, accesibles y mantenibles, cuidando
-              detalle de producto y despliegue.
+              {PERSONAL_INFO.title} especializado en React y Next.js. Aquí
+              recopilo proyectos, ideas y aprendizajes que me gusta construir.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-subtle">
@@ -80,7 +79,7 @@ export default function HeroSection() {
                 Ver proyectos
               </Button>
               <Button href="#contact" variant="secondary" size="lg">
-                Hablemos
+                Contacto
               </Button>
             </div>
           </div>

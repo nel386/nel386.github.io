@@ -54,7 +54,7 @@ Malaga, Espana - disponible para trabajo remoto, contrataciones y proyectos free
 
 # SOBRE MI
 
-Soy desarrollador Full Stack con foco en frontend moderno: React y Next.js son mi dia a dia. Me interesa construir interfaces rapidas, accesibles y mantenibles usando TypeScript y Tailwind. Tengo experiencia poniendo en produccion aplicaciones auto-hosted y optimizando pipelines de despliegue. Trabajo bien en equipo, aprendo rapido y cuido los detalles gracias a un trasfondo tecnico-practico que me dio rigor y precision. Busco colaborar con startups y proyectos que valoren rendimiento y UX.
+Soy desarrollador Full Stack con foco en frontend moderno: React y Next.js son mi dia a dia. Me interesa construir interfaces rapidas, accesibles y mantenibles usando TypeScript y Tailwind. Tengo experiencia poniendo en produccion aplicaciones auto-hosted y optimizando pipelines de despliegue. Trabajo bien en equipo, aprendo rapido y cuido los detalles gracias a un trasfondo tecnico-practico que me dio rigor y precision. Comparto aquí proyectos personales y experimentos en los que voy afinando UI, rendimiento y detalle visual.
 
 ---
 
@@ -92,7 +92,7 @@ Soy desarrollador Full Stack con foco en frontend moderno: React y Next.js son m
 - **LinkedIn:** https://www.linkedin.com/in/nel386/
 - **Ubicacion:** Malaga, Espana
 
-**Frase CTA final:** ¿Tienes un proyecto o necesitas apoyo tecnico? Escribeme y coordinamos una llamada.
+**Frase CTA final:** Enlaces para conectar y compartir feedback.
 
 ---
 

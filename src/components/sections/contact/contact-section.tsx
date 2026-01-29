@@ -7,19 +7,18 @@ export default function ContactSection() {
       <div className="container mx-auto px-6 max-w-6xl">
         <SectionHeading
           title="Contacto"
-          subtitle="¿Tienes un proyecto o necesitas apoyo técnico? Escríbeme y coordinamos una llamada."
+          subtitle="Enlaces para conectar y compartir feedback."
         />
 
         <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-5 text-muted">
             <p>
-              Estoy disponible para trabajo remoto, colaboraciones puntuales y
-              proyectos full-stack. Si necesitas ayuda para lanzar o mejorar un
-              producto, aquí estoy.
+              Este portfolio es un espacio personal. Aquí están mis enlaces por
+              si quieres comentar algo o simplemente seguir lo que voy haciendo.
             </p>
             <div className="flex flex-wrap gap-3">
               <Button href={`mailto:${PERSONAL_INFO.email}`}>
-                Escríbeme
+                Email
               </Button>
               <Button href={PERSONAL_INFO.linkedin} target="_blank" variant="secondary">
                 LinkedIn

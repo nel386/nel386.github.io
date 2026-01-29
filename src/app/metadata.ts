@@ -1,9 +1,9 @@
 ﻿import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Nelson González - Full Stack Developer",
+  title: "Nelson González - Frontend Developer",
   description:
-    "Desarrollador Full Stack (React, Next.js). Construyo aplicaciones web rápidas y mantenibles.",
+    "Desarrollador frontend (React, Next.js). Portfolio personal con proyectos y aprendizajes.",
 };
 
 export default metadata;

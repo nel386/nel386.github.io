@@ -23,8 +23,8 @@ export default function AboutSection() {
               técnica.
             </p>
             <p>
-              Busco colaborar con startups y proyectos que valoren rendimiento,
-              claridad y una ejecución limpia.
+              Comparto aquí proyectos personales y experimentos en los que voy
+              afinando UI, rendimiento y detalle visual.
             </p>
           </div>
 

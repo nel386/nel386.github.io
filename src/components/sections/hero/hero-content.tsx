@@ -10,8 +10,7 @@ export default function HeroContent() {
       />
       <p className="mt-4 max-w-xl text-muted">
         Ahora construyendo Padeltracker.es: app para seguimiento de partidos,
-        estadísticas y ranking. Málaga, España - disponible para trabajo remoto
-        y proyectos freelance.
+        estadísticas y ranking. Málaga, España.
       </p>
       <div className="mt-6 flex gap-3">
         <Button href="#projects">Ver proyectos</Button>

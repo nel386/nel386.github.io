@@ -83,6 +83,8 @@ export const PROJECTS: Project[] = [
     visibility: "principal",
     order: 4,
     stack: ["React", "Vite", "Capacitor", "Vitest"],
+    liveUrl: "https://nel386.github.io/punto-medio/",
+    liveLabel: "Jugar ahora",
     year: 2026,
   },
   {

@@ -1,3 +1,11 @@
+export type ProjectStatus =
+  | "Publicado"
+  | "En construcción"
+  | "En realización"
+  | "Pausado";
+
+export type ProjectVisibility = "principal" | "archivo";
+
 export type Project = {
   id: string;
   title: string;
@@ -5,9 +13,13 @@ export type Project = {
   longDescription?: string;
   highlights?: readonly string[];
   role?: string;
-  status?: string;
+  category: string;
+  status: ProjectStatus;
+  visibility: ProjectVisibility;
+  order: number;
   stack: readonly string[];
   liveUrl?: string;
+  liveLabel?: string;
   repoUrl?: string;
   imagePath?: string;
   featured?: boolean;

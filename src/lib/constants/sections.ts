@@ -3,7 +3,7 @@
   { id: "projects", label: "Proyectos" },
   { id: "about", label: "Sobre mí" },
   { id: "skills", label: "Skills" },
-  { id: "stats", label: "Impacto" },
+  { id: "stats", label: "Estado" },
   { id: "contact", label: "Contacto" },
 ];
 

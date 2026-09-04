@@ -1,110 +1,68 @@
-﻿"use client";
-
-import { useEffect, useRef, useState } from "react";
 import { PROJECTS } from "@/lib/constants";
+import type { ProjectStatus } from "@/types";
 
-function AnimatedNumber({
-  value,
-  suffix = "",
-  duration = 1200,
-}: {
-  value: number;
-  suffix?: string;
-  duration?: number;
-}) {
-  const [count, setCount] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+const STATUS_ORDER: ProjectStatus[] = [
+  "Publicado",
+  "En construcción",
+  "En realización",
+];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.4 },
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    if (prefersReducedMotion) {
-      setCount(value);
-      return;
-    }
-
-    const start = performance.now();
-    let rafId = 0;
-
-    const animate = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      setCount(Math.floor(progress * value));
-
-      if (progress < 1) {
-        rafId = requestAnimationFrame(animate);
-      }
-    };
-
-    rafId = requestAnimationFrame(animate);
-
-    return () => cancelAnimationFrame(rafId);
-  }, [isVisible, value, duration]);
-
-  return (
-    <div ref={ref} className="text-4xl md:text-5xl font-semibold text-foreground">
-      {count}
-      {suffix}
-    </div>
-  );
-}
+const STATUS_STYLES: Record<ProjectStatus, string> = {
+  Publicado: "status-published",
+  "En construcción": "status-building",
+  "En realización": "status-in-progress",
+  Pausado: "status-paused",
+};
 
 export default function StatsSection() {
-  const liveProjects = PROJECTS.filter((project) => project.liveUrl).length;
-  const featuredProjects = PROJECTS.filter((project) => project.featured).length;
-
-  const stats = [
-    {
-      value: liveProjects,
-      suffix: "+",
-      label: "Proyectos en producción",
-    },
-    {
-      value: featuredProjects,
-      suffix: "+",
-      label: "Productos destacados",
-    },
-    {
-      value: 100,
-      suffix: "%",
-      label: "Foco en calidad, DX y detalle",
-    },
-  ];
+  const mainProjects = PROJECTS.filter(
+    (project) => project.visibility === "principal",
+  );
 
   return (
     <section id="stats" className="bg-surface-alt">
-      <div className="container mx-auto px-6 max-w-6xl">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-2xl border border-surface bg-surface-elevated p-6 shadow-card"
-            >
-              <AnimatedNumber value={stat.value} suffix={stat.suffix} />
-              <div className="text-sm text-muted mt-2">{stat.label}</div>
-            </div>
-          ))}
+      <div className="container mx-auto max-w-6xl px-6">
+        <div className="grid gap-10 md:grid-cols-[0.8fr_1.2fr] md:items-end">
+          <div>
+            <p className="eyebrow">Estado del taller</p>
+            <h2 className="mt-3 text-3xl font-semibold text-foreground md:text-4xl">
+              No todo tiene que estar terminado para estar vivo.
+            </h2>
+          </div>
+          <p className="max-w-2xl text-lg leading-relaxed text-muted">
+            Este es el estado real de las piezas que forman el escaparate.
+            Algunas ya están fuera; otras todavía están encontrando su forma.
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-4 md:grid-cols-3">
+          {STATUS_ORDER.map((status) => {
+            const count = mainProjects.filter(
+              (project) => project.status === status,
+            ).length;
+            return (
+              <div
+                key={status}
+                className="state-card border-t-2 border-[color:var(--accent)] pt-5"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <span className={`status-badge ${STATUS_STYLES[status]}`}>
+                    {status}
+                  </span>
+                  <span className="text-4xl font-semibold text-foreground">
+                    {count}
+                  </span>
+                </div>
+                <p className="mt-3 text-sm text-muted">
+                  {status === "Publicado"
+                    ? "Se pueden abrir, probar o instalar."
+                    : status === "En construcción"
+                      ? "Tienen una forma clara y siguen en movimiento."
+                      : "Están en el taller, sin prometer una fecha."}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

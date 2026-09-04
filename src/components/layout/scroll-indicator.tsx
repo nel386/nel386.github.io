@@ -7,24 +7,59 @@ export default function ScrollIndicator() {
   const [activeSection, setActiveSection] = useState(SECTIONS[0]?.id ?? "hero");
 
   useEffect(() => {
+    const initialHash = window.location.hash.replace("#", "");
+    if (SECTIONS.some((section) => section.id === initialHash)) {
+      setActiveSection(initialHash);
+    }
+
     const sections = SECTIONS.map((section) =>
       document.getElementById(section.id),
     ).filter((section): section is HTMLElement => Boolean(section));
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: "-35% 0px -55% 0px", threshold: 0.1 },
-    );
+    const updateActiveSection = () => {
+      const marker = window.scrollY + 120;
+      let currentSection = sections[0]?.id ?? "hero";
 
-    sections.forEach((section) => observer.observe(section));
+      for (const section of sections) {
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        if (sectionTop <= marker) currentSection = section.id;
+      }
 
-    return () => observer.disconnect();
+      setActiveSection(currentSection);
+    };
+
+    if (!initialHash) updateActiveSection();
+    if (initialHash) setActiveSection(initialHash);
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("smooth-scroll", updateActiveSection);
+    let lastScrollY = window.scrollY;
+    let monitorFrame = 0;
+    const monitorScrollPosition = () => {
+      if (window.scrollY !== lastScrollY) {
+        lastScrollY = window.scrollY;
+        updateActiveSection();
+      }
+      monitorFrame = window.requestAnimationFrame(monitorScrollPosition);
+    };
+    monitorFrame = window.requestAnimationFrame(monitorScrollPosition);
+    const initialPositionTimeout = window.setTimeout(updateActiveSection, 500);
+    const syncHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (SECTIONS.some((section) => section.id === hash)) {
+        setActiveSection(hash);
+      }
+    };
+    const initialHashTimeout = window.setTimeout(syncHash, 1000);
+    window.addEventListener("hashchange", syncHash);
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("smooth-scroll", updateActiveSection);
+      window.cancelAnimationFrame(monitorFrame);
+      window.removeEventListener("hashchange", syncHash);
+      window.clearTimeout(initialHashTimeout);
+      window.clearTimeout(initialPositionTimeout);
+    };
   }, []);
 
   return (

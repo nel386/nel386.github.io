@@ -1,130 +1,142 @@
-﻿"use client";
+"use client";
 
 import Lenis from "lenis";
 import { useEffect } from "react";
 
 export default function SmoothScroll() {
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const previousScrollRestoration = window.history.scrollRestoration;
+    window.history.scrollRestoration = "manual";
+
+    const initialHash = window.location.hash;
+    const initialTarget = initialHash
+      ? document.querySelector<HTMLElement>(initialHash)
+      : null;
+    if (initialTarget) {
+      const targetY =
+        initialTarget.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo(0, Math.max(0, targetY));
+    }
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - 2 ** (-10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
-      smoothWheel: true,
+      smoothWheel: !prefersReducedMotion,
       wheelMultiplier: 1,
       touchMultiplier: 2,
       infinite: false,
     });
+
+    const notifySmoothScroll = () => {
+      window.dispatchEvent(new Event("smooth-scroll"));
+    };
+    lenis.on("scroll", notifySmoothScroll);
 
     let rafId = 0;
     const raf = (time: number) => {
       lenis.raf(time);
       rafId = requestAnimationFrame(raf);
     };
-
     rafId = requestAnimationFrame(raf);
 
-    // ======================================
-    // 1. SMOOTH SCROLL EN LINKS
-    // ======================================
     const setHash = (value: string) => {
       if (window.location.hash !== value) {
-        history.replaceState(null, "", value);
+        window.history.replaceState(null, "", value);
+        window.dispatchEvent(new Event("hashchange"));
       }
     };
 
-    const handleAnchorClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const anchor = target.closest('a[href^="#"]');
-
-      if (anchor) {
-        e.preventDefault();
-        const href = anchor.getAttribute("href");
-        if (href && href !== "#") {
-          const targetElement = document.querySelector(href);
-          if (targetElement instanceof HTMLElement) {
-            lenis.scrollTo(targetElement, {
-              offset: -80,
-              duration: 1.5,
-              onComplete: () => {
-                setHash(href);
-              },
-            });
-          }
-        }
-      }
-    };
-
-    document.addEventListener("click", handleAnchorClick);
-
-    // ======================================
-    // 2. SNAP DIRECCIONAL CON THRESHOLD BAJO
-    // ======================================
     let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
     let scrollStartY = window.scrollY;
     let isScrolling = false;
     let isSnapping = false;
-
-    const SCROLL_THRESHOLD = 50; // 50px = poco scroll ya activa el snap
+    let isAnimating = false;
+    let isBooting = Boolean(initialTarget);
+    const bootTimeout = window.setTimeout(() => {
+      isBooting = false;
+      scrollStartY = window.scrollY;
+    }, 1500);
 
     const snapToNextOrPrevious = () => {
-      if (isSnapping) return;
+      if (prefersReducedMotion || isBooting || isSnapping || isAnimating)
+        return;
 
       const sections = Array.from(
-        document.querySelectorAll("section[id]"),
-      ) as HTMLElement[];
+        document.querySelectorAll<HTMLElement>("section[id]"),
+      );
       const currentScrollY = window.scrollY;
       const scrollDelta = currentScrollY - scrollStartY;
+      if (Math.abs(scrollDelta) < 50 || sections.length < 2) return;
 
-      // Si no scrolleó al menos el threshold, no hacer nada
-      if (Math.abs(scrollDelta) < SCROLL_THRESHOLD) {
-        return;
-      }
-
-      // Encontrar sección actual
       const viewportCenter = currentScrollY + window.innerHeight / 2;
       let currentIndex = 0;
 
-      sections.forEach((section, i) => {
-        const rect = section.getBoundingClientRect();
-        const sectionTop = rect.top + currentScrollY;
-        const sectionBottom = sectionTop + rect.height;
-
+      sections.forEach((section, index) => {
+        const sectionTop = section.getBoundingClientRect().top + currentScrollY;
+        const sectionBottom =
+          sectionTop + section.getBoundingClientRect().height;
         if (viewportCenter >= sectionTop && viewportCenter < sectionBottom) {
-          currentIndex = i;
+          currentIndex = index;
         }
       });
 
-      let targetIndex = currentIndex;
-
-      // Detectar dirección del scroll
-      if (scrollDelta > 0) {
-        // Scroll hacia abajo → siguiente sección
-        targetIndex = Math.min(currentIndex + 1, sections.length - 1);
-      } else if (scrollDelta < 0) {
-        // Scroll hacia arriba → sección anterior
-        targetIndex = Math.max(currentIndex - 1, 0);
-      }
-
-      // Ejecutar snap
+      const targetIndex =
+        scrollDelta > 0
+          ? Math.min(currentIndex + 1, sections.length - 1)
+          : Math.max(currentIndex - 1, 0);
       const targetSection = sections[targetIndex];
-      if (targetSection && targetIndex !== currentIndex) {
-        isSnapping = true;
-        lenis.scrollTo(targetSection, {
-          offset: -80,
-          duration: 0.8,
-          onComplete: () => {
-            isSnapping = false;
-            scrollStartY = window.scrollY;
-            setHash(`#${targetSection.id}`);
-          },
-        });
+      if (!targetSection || targetIndex === currentIndex) return;
+
+      isSnapping = true;
+      lenis.scrollTo(targetSection, {
+        offset: -80,
+        duration: 0.8,
+        onComplete: () => {
+          isSnapping = false;
+          scrollStartY = window.scrollY;
+          setHash(`#${targetSection.id}`);
+        },
+      });
+    };
+
+    const handleAnchorClick = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const anchor = target.closest<HTMLAnchorElement>('a[href^="#"]');
+      const href = anchor?.getAttribute("href");
+      if (!href || href === "#") return;
+
+      const targetElement = document.querySelector<HTMLElement>(href);
+      if (!targetElement) return;
+
+      event.preventDefault();
+      if (prefersReducedMotion) {
+        targetElement.scrollIntoView();
+        setHash(href);
+        return;
       }
+
+      isAnimating = true;
+      lenis.scrollTo(targetElement, {
+        offset: -80,
+        duration: 1.5,
+        onComplete: () => {
+          isAnimating = false;
+          scrollStartY = window.scrollY;
+          setHash(href);
+        },
+      });
     };
 
     const handleScroll = () => {
-      // Si ya está snapping, ignorar
-      if (isSnapping) return;
+      if (prefersReducedMotion || isBooting || isSnapping || isAnimating)
+        return;
 
       if (!isScrolling) {
         isScrolling = true;
@@ -132,31 +144,29 @@ export default function SmoothScroll() {
       }
 
       if (scrollTimeout) clearTimeout(scrollTimeout);
-
       scrollTimeout = setTimeout(() => {
         snapToNextOrPrevious();
         isScrolling = false;
-      }, 100); // Reducido de 150ms a 100ms para más reactividad
+      }, 100);
     };
 
     const handleScrollStart = () => {
-      if (!isSnapping) {
-        scrollStartY = window.scrollY;
-      }
+      if (!isSnapping && !isAnimating) scrollStartY = window.scrollY;
     };
 
+    document.addEventListener("click", handleAnchorClick);
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("scrollend", handleScrollStart, { passive: true });
 
-    // ======================================
-    // CLEANUP
-    // ======================================
     return () => {
       cancelAnimationFrame(rafId);
+      lenis.off("scroll", notifySmoothScroll);
       lenis.destroy();
       document.removeEventListener("click", handleAnchorClick);
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("scrollend", handleScrollStart);
+      window.history.scrollRestoration = previousScrollRestoration;
+      window.clearTimeout(bootTimeout);
       if (scrollTimeout) clearTimeout(scrollTimeout);
     };
   }, []);

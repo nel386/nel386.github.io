@@ -4,12 +4,12 @@ export const SKILLS: SkillCategory[] = [
   {
     category: "Frontend",
     items: [
-      "React (hooks, patterns modernos)",
-      "Next.js 15 (App Router)",
+      "React (hooks y patrones de composición)",
+      "Next.js (App Router)",
       "TypeScript",
       "Tailwind CSS",
       "HTML5 & CSS moderno",
-      "Responsive design",
+      "Diseño responsive",
       "Accesibilidad (a11y)",
     ],
   },

@@ -8,7 +8,7 @@ export default function SkillsSection() {
       <div className="container mx-auto px-6 max-w-6xl">
         <SectionHeading
           title="Skills"
-          subtitle="Tecnologías que uso activamente para construir productos sólidos, desde el UI hasta el despliegue."
+          subtitle="Las herramientas que aparecen una y otra vez cuando estoy construyendo algo."
         />
         <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
           {SKILLS.map((skillGroup) => (

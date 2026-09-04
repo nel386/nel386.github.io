@@ -17,23 +17,20 @@ const displayFont = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Nelson González - Frontend Developer",
+  title: "Nelson González — Laboratorio personal",
   description:
-    "Desarrollador frontend especializado en React y Next.js. Portfolio personal con proyectos y aprendizajes.",
+    "Productos, juegos y herramientas construidos por Nelson González.",
   keywords: [
-    "Full Stack Developer",
-    "React Developer",
+    "Portfolio personal",
+    "Productos digitales",
+    "Juegos web",
     "Next.js",
     "TypeScript",
-    "Frontend Developer",
-    "Málaga",
-    "Portfolio",
   ],
   authors: [{ name: "Nelson González" }],
   openGraph: {
     title: "Nelson González - Frontend Developer",
-    description:
-      "Portfolio de desarrollador Full Stack especializado en React y Next.js",
+    description: "Un laboratorio personal de productos, juegos y herramientas.",
     type: "website",
     locale: "es_ES",
   },
@@ -46,7 +43,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" data-theme="light" suppressHydrationWarning>
-      <body className={`${bodyFont.variable} ${displayFont.variable} antialiased`}>
+      <body
+        className={`${bodyFont.variable} ${displayFont.variable} antialiased`}
+      >
         <SmoothScroll />
         <Navigation />
         <ScrollIndicator />

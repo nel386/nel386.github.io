@@ -1,64 +1,49 @@
-﻿import { Button, SectionHeading } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { PERSONAL_INFO } from "@/lib/constants";
 
 export default function ContactSection() {
   return (
     <section id="contact" className="bg-transparent">
-      <div className="container mx-auto px-6 max-w-6xl">
-        <SectionHeading
-          title="Contacto"
-          subtitle="Enlaces para conectar y compartir feedback."
-        />
-
-        <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-5 text-muted">
-            <p>
-              Este portfolio es un espacio personal. Aquí están mis enlaces por
-              si quieres comentar algo o simplemente seguir lo que voy haciendo.
+      <div className="container mx-auto max-w-6xl px-6">
+        <div className="contact-panel grid gap-10 rounded-[2rem] bg-[color:var(--footer-bg)] p-7 text-[color:var(--footer-text)] shadow-card md:grid-cols-[1.15fr_0.85fr] md:gap-0 md:p-12">
+          <div className="md:pr-12">
+            <p className="eyebrow text-[color:var(--footer-muted)]">Contacto</p>
+            <h2 className="mt-4 max-w-xl text-4xl font-semibold text-white md:text-5xl">
+              Hablamos
+            </h2>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-[color:var(--footer-muted)]">
+              Cuéntame una idea, una duda o simplemente algo que te apetezca
+              compartir.
             </p>
-            <div className="flex flex-wrap gap-3">
-              <Button href={`mailto:${PERSONAL_INFO.email}`}>
-                Email
-              </Button>
-              <Button href={PERSONAL_INFO.linkedin} target="_blank" variant="secondary">
-                LinkedIn
+            <div className="mt-8">
+              <Button href={`mailto:${PERSONAL_INFO.email}`} size="lg">
+                Escribirme
               </Button>
             </div>
           </div>
 
-          <div className="grid gap-4">
-            <div className="rounded-2xl border border-surface bg-surface-elevated p-5 shadow-card">
-              <p className="text-xs uppercase tracking-[0.2em] text-subtle">Email</p>
-              <a
-                href={`mailto:${PERSONAL_INFO.email}`}
-                className="mt-2 block text-lg font-semibold text-foreground hover:text-[color:var(--accent)]"
-              >
-                {PERSONAL_INFO.email}
-              </a>
-            </div>
-            <div className="rounded-2xl border border-surface bg-surface-elevated p-5 shadow-card">
-              <p className="text-xs uppercase tracking-[0.2em] text-subtle">GitHub</p>
+          <div className="border-t border-white/10 pt-8 md:border-l md:border-t-0 md:pl-10 md:pt-0">
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[color:var(--footer-muted)]">
+              También estoy en
+            </p>
+            <div className="mt-5 space-y-4">
               <a
                 href={PERSONAL_INFO.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 block text-sm font-medium text-muted hover:text-[color:var(--accent)]"
+                className="flex items-center justify-between border-b border-white/10 pb-4 text-lg font-semibold text-white transition-colors hover:text-[color:var(--accent)]"
               >
-                {PERSONAL_INFO.github.replace("https://", "")}
+                GitHub <span aria-hidden="true">↗</span>
               </a>
-            </div>
-            <div className="rounded-2xl border border-surface bg-surface-elevated p-5 shadow-card">
-              <p className="text-xs uppercase tracking-[0.2em] text-subtle">LinkedIn</p>
               <a
                 href={PERSONAL_INFO.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 block text-sm font-medium text-muted hover:text-[color:var(--accent)]"
+                className="flex items-center justify-between border-b border-white/10 pb-4 text-lg font-semibold text-white transition-colors hover:text-[color:var(--accent)]"
               >
-                {PERSONAL_INFO.linkedin.replace("https://", "")}
+                LinkedIn <span aria-hidden="true">↗</span>
               </a>
             </div>
-            <p className="text-sm text-subtle">{PERSONAL_INFO.location}</p>
           </div>
         </div>
       </div>

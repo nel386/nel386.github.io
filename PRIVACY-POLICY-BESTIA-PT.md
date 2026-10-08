@@ -16,7 +16,7 @@ OpenAI procesa el contenido que envías a ChatGPT o Codex para prestar esos serv
 
 Si escribes al correo de contacto, el editor recibe tu dirección de correo, el contenido del mensaje y los datos asociados al correo (por ejemplo, fecha y asunto) para responder a la consulta. Para ello, pueden acceder a esos datos el editor y el proveedor del servicio de correo que aloja el buzón. No se usan los mensajes de soporte para publicidad.
 
-Los mensajes se conservan mientras sean necesarios para gestionar la consulta. Puedes pedir su eliminación escribiendo a la misma dirección. **[Hay que concretar aquí el plazo máximo de conservación tras cerrar la consulta.]**
+Los mensajes se conservan mientras sean necesarios para gestionar la consulta. Puedes pedir su eliminación escribiendo a la misma dirección.
 
 ## Datos del alumnado
 

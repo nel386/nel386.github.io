@@ -10,11 +10,13 @@ El plugin Bestia PT Andalucía 2027 lo mantiene Nelson González (nel386), como 
 
 El plugin contiene instrucciones y materiales de referencia. No incorpora un servidor propio, conexiones a aplicaciones externas, analítica ni una base de datos del editor. El editor no recibe las conversaciones ni los archivos que compartes con ChatGPT o Codex al utilizar el plugin.
 
-OpenAI procesa el contenido que envías a ChatGPT o Codex para prestar esos servicios. Ese tratamiento se rige por las condiciones, controles de cuenta y [política de privacidad de OpenAI](https://openai.com/policies/privacy-policy/). El editor del plugin no puede consultar ni borrar esos datos desde su cuenta.
+OpenAI procesa el contenido que envías a ChatGPT o Codex para prestar esos servicios. OpenAI y los proveedores que actúen por cuenta de OpenAI pueden tratar esos datos conforme a las condiciones, controles de cuenta y [política de privacidad de OpenAI](https://openai.com/policies/privacy-policy/). El editor del plugin no puede consultar ni borrar esos datos desde su cuenta; puedes gestionarlos mediante los controles de tu cuenta de ChatGPT o Codex y las opciones de privacidad de OpenAI.
 
 ## Consultas de soporte
 
-Si escribes al correo de contacto, el editor recibe tu dirección de correo y el contenido del mensaje para responder a la consulta. No se usan los mensajes de soporte para publicidad. Se conservan mientras sean necesarios para gestionar la consulta; puedes pedir su eliminación escribiendo a la misma dirección.
+Si escribes al correo de contacto, el editor recibe tu dirección de correo, el contenido del mensaje y los datos asociados al correo (por ejemplo, fecha y asunto) para responder a la consulta. Para ello, pueden acceder a esos datos el editor y el proveedor del servicio de correo que aloja el buzón. No se usan los mensajes de soporte para publicidad.
+
+Los mensajes se conservan mientras sean necesarios para gestionar la consulta. Puedes pedir su eliminación escribiendo a la misma dirección. **[Hay que concretar aquí el plazo máximo de conservación tras cerrar la consulta.]**
 
 ## Datos del alumnado
 
